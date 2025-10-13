@@ -244,7 +244,7 @@ class Api:
             data = []
             for item in result.get("TextDetections", []):
                 text = item.get("DetectedText", "")
-                box = [[pt["X"], pt["Y"]] for pt in item.get("Polygon", [])]
+                box = [[pt.get("X", 0), pt.get("Y", 0)] for pt in item.get("Polygon", [])]
                 score = item.get("Confidence", 1.0)
                 data.append({"text": text, "box": box, "score": score})
             return {"code": 100, "data": data} if data else {"code": 101, "data": ""}
@@ -295,16 +295,26 @@ class Api:
                     tables.append([])
                     continue
 
-                max_row = max(cell["RowBr"] for cell in cells)
-                max_col = max(cell["ColBr"] for cell in cells)
+                # 安全获取最大行列（RowBr/ColBr 表示结束边界，即实际行/列数）
+                max_row = max(cell.get("RowBr", 0) for cell in cells)
+                max_col = max(cell.get("ColBr", 0) for cell in cells)
+
+                # 创建二维表格网格
                 grid = [["" for _ in range(max_col)] for _ in range(max_row)]
 
+                # 填充单元格内容（带边界检查！）
                 for cell in cells:
-                    row_tl = cell["RowTl"]
-                    col_tl = cell["ColTl"]
+                    row_tl = cell.get("RowTl", -1)
+                    col_tl = cell.get("ColTl", -1)
                     text = cell.get("Text", "")
-                    if grid[row_tl][col_tl] == "":
-                        grid[row_tl][col_tl] = text
+
+                    # 🔒 关键修复：防止 list index out of range
+                    if 0 <= row_tl < max_row and 0 <= col_tl < max_col:
+                        if grid[row_tl][col_tl] == "":
+                            grid[row_tl][col_tl] = text
+                    # 可选：记录异常单元格（调试用）
+                    # else:
+                    #     print(f"[WARN] Cell out of bounds: RowTl={row_tl}, ColTl={col_tl}, max_row={max_row}, max_col={max_col}")
 
                 tables.append(grid)
 
@@ -337,7 +347,7 @@ class Api:
 
             return {
                 "code": 100,
-                "data": data,  # ← 现在是 dict list，兼容上层
+                "data": data,
                 "extra": {
                     "excel_base64": excel_b64,
                     "angle": angle,
@@ -345,19 +355,23 @@ class Api:
                     "raw_cells": raw_cells_list
                 }
             }
+
         elif self.api_type == "TableOCR":
             # 旧版 TableOCR 解析
             cells = result.get("TextDetections", [])
             raw_cells_list = [cells]  # 为了和新版结构对齐，包装成列表
 
             if not cells:
-                return {"code": 101, "data": "", "extra": {"excel_base64": "", "request_id": result.get("RequestId", "")}}
+                return {
+                    "code": 101,
+                    "data": "",
+                    "extra": {
+                        "excel_base64": "",
+                        "request_id": result.get("RequestId", "")
+                    }
+                }
 
-            # 构建表格网格
-            max_row = max(cell.get("RowBr", 0) for cell in cells) if cells else 1
-            max_col = max(cell.get("ColBr", 0) for cell in cells) if cells else 1
-
-            # 注意：TableOCR 的 RowTl/ColTl 可能为 -1（表示非结构化文本），需过滤
+            # 过滤结构化单元格（RowTl/ColTl >= 0）
             structured_cells = [c for c in cells if c.get("RowTl", -1) >= 0 and c.get("ColTl", -1) >= 0]
 
             if not structured_cells:
@@ -372,13 +386,13 @@ class Api:
                     }
                 }
 
-            max_row = max(cell["RowBr"] for cell in structured_cells)
-            max_col = max(cell["ColBr"] for cell in structured_cells)
+            max_row = max(cell.get("RowBr", 0) for cell in structured_cells)
+            max_col = max(cell.get("ColBr", 0) for cell in structured_cells)
             grid = [["" for _ in range(max_col)] for _ in range(max_row)]
 
             for cell in structured_cells:
-                row_tl = cell["RowTl"]
-                col_tl = cell["ColTl"]
+                row_tl = cell.get("RowTl", -1)
+                col_tl = cell.get("ColTl", -1)
                 text = cell.get("Text", "")
                 if 0 <= row_tl < max_row and 0 <= col_tl < max_col:
                     if grid[row_tl][col_tl] == "":
@@ -411,5 +425,6 @@ class Api:
                     "raw_cells": raw_cells_list
                 }
             }
+
         else:
             return {"code": 102, "data": f"[Error] 不支持的接口: {self.api_type}"}
