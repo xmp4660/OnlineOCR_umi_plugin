@@ -1,0 +1,18 @@
+key,en_US,zh_CN
+百度 OCR,Baidu OCR,百度 OCR
+API Key,API Key,API 密钥
+Secret Key,Secret Key,Secret 密钥
+超时时间,Timeout,超时时间
+秒,sec,秒
+文字识别（百度 OCR）,Text Recognition (Baidu OCR),文字识别（百度 OCR）
+语言类型,Language Type,语言类型
+自动旋转,Detect Direction,自动旋转
+段落划分,Paragraph,段落划分
+识别精度,Accuracy,识别精度
+快速,Normal,快速
+高精度,High,高精度
+百度智能云 OCR 的 API Key。,API Key from Baidu AI Cloud OCR.,百度智能云 OCR 的 API 密钥。
+百度智能云 OCR 的 Secret Key。,Secret Key from Baidu AI Cloud OCR.,百度智能云 OCR 的 Secret 密钥。
+是否自动检测图像方向，自动旋转纠正。,Automatically detect image orientation and correct rotation.,是否自动检测图像方向，自动旋转纠正。
+是否输出段落信息。,Whether to output paragraph information.,是否输出段落信息。
+高精度模式更准确但更慢。,High accuracy mode is more precise but slower.,高精度模式更准确但更慢。
