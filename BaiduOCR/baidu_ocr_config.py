@@ -1,4 +1,3 @@
-# baidu_ocr_config.py
 from plugin_i18n import Translator
 
 tr = Translator(__file__, "i18n.csv")
@@ -8,15 +7,15 @@ tr = Translator(__file__, "i18n.csv")
 globalOptions = {
     "title": tr("百度 OCR"),
     "type": "group",
-    "api_key": {           # ✅ 必须是小写
+    "api_key": {
         "title": tr("API Key"),
         "default": "",
-        "toolTip": tr("百度智能云 OCR 的 API Key。"),
+        "toolTip": tr("百度智能云 OCR 的 API Key"),
     },
-    "secret_key": {        # ✅ 必须是小写
+    "secret_key": {
         "title": tr("Secret Key"),
         "default": "",
-        "toolTip": tr("百度智能云 OCR 的 Secret Key。"),
+        "toolTip": tr("百度智能云 OCR 的 Secret Key"),
     },
     "timeout": {
         "title": tr("超时时间"),

@@ -89,7 +89,7 @@ class Api:
             "numbers": "https://aip.baidubce.com/rest/2.0/ocr/v1/numbers",
             "handwriting": "https://aip.baidubce.com/rest/2.0/ocr/v1/handwriting",
             "formula": "https://aip.baidubce.com/rest/2.0/ocr/v1/formula",
-            "table": "https://aip.baidubce.com/rest/2.0/ocr/v1/table",  # ✅ 新增表格识别
+            "table": "https://aip.baidubce.com/rest/2.0/ocr/v1/table",  
         }
 
         if self.api_type not in urls:

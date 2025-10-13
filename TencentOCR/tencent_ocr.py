@@ -63,10 +63,12 @@ class Api:
             self.pdf_page_number = argd.get("pdf_page_number", 1)
             table_lang = argd.get("table_language", "zh").strip().lower()
             self.table_language = "jap" if table_lang in ("jap", "japanese") else "zh"
+
         # RecognizeTableAccurateOCR 特有参数
         if self.api_type == "RecognizeTableAccurateOCR":
             # 即使是图片，也设为默认值 1（安全，且符合 API 要求）
             self.pdf_page_number = argd.get("pdf_page_number", 1)
+            
         # 在 RecognizeTableAccurateOCR 之后添加：
         if self.api_type == "TableOCR":
             # TableOCR 无特殊参数，仅需图片

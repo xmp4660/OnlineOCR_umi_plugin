@@ -10,12 +10,12 @@ globalOptions = {
     "secret_id": {
         "title": tr("SecretId"),
         "default": "",
-        "toolTip": tr("腾讯云访问密钥 SecretId，可在「访问管理」>「API密钥管理」中获取。"),
+        "toolTip": tr("腾讯云 OCR 的 API Key"),
     },
     "secret_key": {
         "title": tr("SecretKey"),
         "default": "",
-        "toolTip": tr("腾讯云访问密钥 SecretKey，注意保密。"),
+        "toolTip": tr("腾讯云 OCR 的 Secret Key"),
     },
     "timeout": {
         "title": tr("超时时间"),
