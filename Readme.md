@@ -1,8 +1,5 @@
 # Umi-OCR 在线 OCR 插件
 
-[![GitHub](https://img.shields.io/github/license/xmp4660/OnlineOCR_umi_plugin)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/xmp4660/OnlineOCR_umi_plugin)](https://github.com/xmp4660/OnlineOCR_umi_plugin/stargazers)
-
 本项目为 [Umi-OCR](https://github.com/hiroi-sora/Umi-OCR) 提供了调用**腾讯云 OCR API** 和**百度云 OCR API** 的插件功能，让您可以在 Umi-OCR 中使用云端 OCR 服务。
 
 ## ✨ 特性
@@ -87,23 +84,11 @@
 - 🔢 **公式识别**：识别数学公式、科学公式
 - 🌐 **多语言识别**：支持中英日韩等多种语言
 
-## ⚠️ 已知问题
-
-- ⚠️ 表格识别功能目前不太稳定，主要表现为因图片尺寸导致的报错问题，待进一步优化
-
 ## 💰 费用说明
 
 - 腾讯云和百度云的 OCR 服务均提供**免费额度**
 - 超出免费额度后将按次计费，具体价格请参考官方定价
 - 建议先使用免费额度测试效果
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-## 📄 许可证
-
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 
 ## 🙏 致谢
 
@@ -111,10 +96,3 @@
 - [腾讯云 OCR](https://cloud.tencent.com/product/ocr) - 提供强大的 OCR API
 - [百度智能云 OCR](https://cloud.baidu.com/product/ocr) - 提供丰富的 OCR 能力
 - [Qwen](https://www.tongyi.com/) - AI 开发辅助
-
-## 📞 联系方式
-
-如有问题或建议，请通过以下方式联系：
-
-- 📧 提交 [GitHub Issue](https://github.com/xmp4660/OnlineOCR_umi_plugin/issues)
-- ⭐ 如果这个项目对您有帮助，请给个 Star！
